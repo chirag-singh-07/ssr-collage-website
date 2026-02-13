@@ -78,6 +78,17 @@ const navLinks: NavLink[] = [
 ];
 
 const Navbar: React.FC = () => {
+  const [isMobileOpen, setIsMobileOpen] = React.useState(false);
+
+  // Toggle body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isMobileOpen]);
+
   return (
     <header className="relative z-50">
       {/* Top banner */}
@@ -94,8 +105,38 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Primary nav with angled ends (clip-path) */}
-      <nav aria-label="Main navigation" className="w-full mt-1">
+      {/* Mobile Menu Button - Visible on lg and below */}
+      <div className="xl:hidden bg-[#0b4f81] text-white p-4">
+        <div className="flex items-center justify-between">
+          <span className="font-bold text-lg tracking-wide">MENU</span>
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="p-2 text-white hover:bg-white/10 rounded-full transition-colors"
+          >
+            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileOpen && (
+        <div className="absolute top-full left-0 w-full z-50 bg-[#0b4f81] shadow-xl xl:hidden animate-in slide-in-from-top-5 duration-300 border-t border-white/10">
+          <nav className="p-4 pb-8 max-h-[80vh] overflow-y-auto">
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <MobileNavItem
+                  key={link.label}
+                  item={link}
+                  closeMenu={() => setIsMobileOpen(false)}
+                />
+              ))}
+            </ul>
+          </nav>
+        </div>
+      )}
+
+      {/* Primary nav with angled ends (clip-path) - Visible on xl and up */}
+      <nav aria-label="Main navigation" className="w-full mt-1 hidden xl:block">
         <div
           className="bg-[#0b4f81] text-white"
           style={{
@@ -105,7 +146,7 @@ const Navbar: React.FC = () => {
         >
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex items-center justify-between">
-              <ul className="flex items-center">
+              <ul className="flex items-center justify-center w-full">
                 {/* Dynamically render all links using Shadcn Dropdown */}
                 {navLinks.map((link, index) => (
                   <NavDropdownItem
@@ -116,15 +157,16 @@ const Navbar: React.FC = () => {
                 ))}
               </ul>
 
-              {/* Right side: search icon */}
-              <div className="flex items-center gap-4 pr-4">
-                <button
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="Search"
-                >
-                  <Search size={20} className="text-white/90" />
-                </button>
-              </div>
+              {/* Right side: search icon 
+                <div className="flex items-center gap-4 pr-4">
+                  <button
+                    className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                    aria-label="Search"
+                  >
+                    <Search size={20} className="text-white/90" />
+                  </button>
+                </div>
+                */}
             </div>
           </div>
         </div>
@@ -142,6 +184,60 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ChevronDown, Menu, X } from "lucide-react";
+
+// Mobile Navigation Item Component
+const MobileNavItem: React.FC<{ item: NavLink; closeMenu: () => void }> = ({
+  item,
+  closeMenu,
+}) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const hasChildren = item.children && item.children.length > 0;
+
+  if (!hasChildren) {
+    return (
+      <li>
+        <a
+          href={item.href}
+          onClick={closeMenu}
+          className="block w-full py-3 px-4 text-white hover:bg-white/10 rounded-lg transition-colors font-medium border-b border-white/10"
+        >
+          {item.label}
+        </a>
+      </li>
+    );
+  }
+
+  return (
+    <li>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between w-full py-3 px-4 text-white hover:bg-white/10 rounded-lg transition-colors font-medium border-b border-white/10"
+      >
+        {item.label}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {isOpen && (
+        <ul className="pl-4 space-y-1 mt-1 bg-[#093e66] rounded-lg overflow-hidden">
+          {item.children?.map((child) => (
+            <li key={child.label}>
+              <a
+                href={child.href}
+                onClick={closeMenu}
+                className="block w-full py-3 px-4 text-sm text-gray-200 hover:text-white hover:bg-white/5 transition-colors"
+              >
+                {child.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
 
 const NavDropdownItem: React.FC<{
   item: NavLink;
