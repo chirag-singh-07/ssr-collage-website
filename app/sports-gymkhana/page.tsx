@@ -11,6 +11,13 @@ import {
   MapPin,
   Clock,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sports & Gymkhana - SSR College",
+  description:
+    "Explore SSR College's sports facilities, fitness gymnasium, and athletic achievements. Fostering discipline, teamwork, and physical excellence.",
+};
 
 export default function SportsGymkhanaPage() {
   const facilities = [

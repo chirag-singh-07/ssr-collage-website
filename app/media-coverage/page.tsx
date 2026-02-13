@@ -10,6 +10,13 @@ import {
   Bookmark,
   Search,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Media Coverage - SSR College",
+  description:
+    "Stay updated with the latest press releases, news mentions, and media coverage of SSR College's achievements and impact in the community.",
+};
 
 export default function MediaCoveragePage() {
   const categories = [

@@ -10,6 +10,13 @@ import {
   Star,
   ChevronRight,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "College Milestones - SSR College",
+  description:
+    "Explore the journey of SSR College from its foundation to becoming a Centre of Excellence with NAAC Grade 'A' accreditation.",
+};
 
 export default function CollegeMilestonePage() {
   const milestones = [

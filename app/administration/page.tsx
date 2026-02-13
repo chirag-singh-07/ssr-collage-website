@@ -12,6 +12,13 @@ import {
   ClipboardList,
   Layers,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Administration - SSR College",
+  description:
+    "Learn about SSR College's administrative structure, governance, and the four pillars of academic excellence.",
+};
 
 export default function AdministrationPage() {
   const pillars = [

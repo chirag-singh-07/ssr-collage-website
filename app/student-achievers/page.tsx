@@ -10,6 +10,13 @@ import {
   Quote,
   ArrowRight,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Student Achievers - SSR College",
+  description:
+    "Celebrating the brilliant minds and exceptional talents of SSR College students who excel in academics, sports, placements, and cultural activities.",
+};
 
 export default function StudentAchieversPage() {
   const achievers = [

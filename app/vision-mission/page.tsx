@@ -9,6 +9,13 @@ import {
   Users2,
   Trophy,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Vision & Mission - SSR College",
+  description:
+    "Discover SSR College's vision to be a Centre of Excellence and our mission to nurture creativity, research orientation, and leadership in students.",
+};
 
 const VisionMissionPage = () => {
   const objectives = [

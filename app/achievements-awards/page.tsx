@@ -9,6 +9,13 @@ import {
   Globe,
   Zap,
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Achievements & Awards - SSR College",
+  description:
+    "Celebrating SSR College's achievements including NAAC Grade 'A' accreditation, sports championships, and academic excellence.",
+};
 
 export default function AchievementsAwardsPage() {
   const categories = [
