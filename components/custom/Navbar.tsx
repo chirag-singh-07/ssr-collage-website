@@ -21,14 +21,17 @@ const navLinks: NavLink[] = [
         label: "Available Programmes",
         href: "/available-programmes",
         children: [
-          { label: "B. Com.", href: "/bcom" },
-          { label: "B. A.", href: "/ba" },
-          { label: "B. B. A.", href: "/bba" },
-          { label: "B. B. A. (CA)", href: "/bbaca" },
-          { label: "B. Sc. (Computer Science)", href: "/bsc-computer-science" },
-          { label: "B. Sc.", href: "/bsc" },
-          { label: "M. Com.", href: "/mcom" },
-          { label: "M. Sc.", href: "/msc" },
+          { label: "B. Com.", href: "/available-programmes/bcom" },
+          { label: "B. A.", href: "/available-programmes/ba" },
+          { label: "B. B. A.", href: "/available-programmes/bba" },
+          { label: "B. B. A. (CA)", href: "/available-programmes/bbaca" },
+          {
+            label: "B. Sc. (Computer Science)",
+            href: "/available-programmes/bsc-computer-science",
+          },
+          { label: "B. Sc.", href: "/available-programmes/bsc" },
+          { label: "M. Com.", href: "/available-programmes/mcom" },
+          { label: "M. Sc.", href: "/available-programmes/msc" },
         ],
       },
       { label: "Why SSR?", href: "/why-ssr" },
@@ -278,7 +281,7 @@ const NavDropdownItem: React.FC<{
                   : "hover:bg-[#ef5b2d] data-[state=open]:bg-[#ef5b2d]"
               }
             `}
-            onClick={(e) => e.preventDefault()}
+            onClick={() => {}}
           >
             {item.label}
             <span className="text-[10px] opacity-70 transition-transform duration-200 group-data-[state=open]:rotate-180">
@@ -308,7 +311,9 @@ const RecursiveDropdownItem: React.FC<{ item: NavLink }> = ({ item }) => {
     return (
       <DropdownMenuSub>
         <DropdownMenuSubTrigger className="flex items-center justify-between w-full px-4 py-3 text-sm text-white hover:bg-[#ef5b2d] hover:text-white focus:bg-[#ef5b2d] focus:text-white rounded-none cursor-pointer data-[state=open]:bg-[#ef5b2d] data-[state=open]:text-white border-b border-white/10 last:border-0">
-          {item.label}
+          <a href={item.href} className="grow">
+            {item.label}
+          </a>
         </DropdownMenuSubTrigger>
         <DropdownMenuSubContent
           className="bg-[#0b4f81] border-l border-white/10 text-white rounded-none p-0 shadow-xl min-w-[240px] ml-0"
